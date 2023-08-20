@@ -18,7 +18,7 @@ import { Button } from "./ui/Button"
 import { useMutation } from "@tanstack/react-query"
 import axios, { AxiosError } from "axios"
 import { toast } from "@/hooks/use-toast"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { z } from "zod"
 import { cn } from "@/lib/utils"
 
@@ -30,6 +30,7 @@ type FormData = z.infer<typeof UsernameValidator>
 
 export function UserNameForm({ user, className, ...props }: UserNameFormProps) {
   const router = useRouter()
+  const searchParams = useSearchParams()
 
   const {
     handleSubmit,
@@ -70,7 +71,7 @@ export function UserNameForm({ user, className, ...props }: UserNameFormProps) {
       toast({
         description: "Your username has been updated.",
       })
-      router.refresh()
+       searchParams?.get("finish") ? router.push("/settings") : router.refresh()
     },
   })
 
@@ -82,7 +83,7 @@ export function UserNameForm({ user, className, ...props }: UserNameFormProps) {
     >
       <Card>
         <CardHeader>
-          <CardTitle>Your username</CardTitle>
+          <CardTitle className="pb-2">Username</CardTitle>
           <CardDescription>
             Please enter a display name you are comfortable with.
           </CardDescription>
