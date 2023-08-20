@@ -70,6 +70,7 @@ export function UserNameForm({ user, className, ...props }: UserNameFormProps) {
     onSuccess: () => {
       toast({
         description: "Your username has been updated.",
+        variant: "default",
       })
        searchParams?.get("finish") ? router.push("/settings") : router.refresh()
     },
