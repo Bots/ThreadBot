@@ -1,0 +1,105 @@
+ThreadBot - Your Reddit Clone WebApp
+
+ThreadBot is a Reddit clone web application built with Next.js. It allows users to create threads, engage in discussions, and connect with like-minded individuals. This README guide will walk you through the process of setting up and installing the ThreadBot project on your local environment.
+Prerequisites
+
+Before you begin, ensure you have the following installed on your system:
+
+    Node.js: Make sure you have Node.js installed. You can download it from the official website: Node.js
+
+Installation
+
+    Clone the Repository:
+
+    Start by cloning the ThreadBot repository from GitHub:
+
+    bash
+
+git clone https://github.com/bots/threadbot.git
+
+Navigate to the Project Directory:
+
+Change into the project directory:
+
+bash
+
+cd threadbot
+
+Install Dependencies:
+
+Use npm or yarn to install the project dependencies:
+
+Using npm:
+
+bash
+
+npm install
+
+Using Yarn:
+
+bash
+
+    yarn install
+
+Configuration
+
+    Environment Variables:
+
+    Create a .env.local file in the root directory of the project. This file should contain the necessary environment variables.
+
+    env
+
+    NEXT_PUBLIC_API_URL=https://api.threadbot.com
+
+    Replace https://api.threadbot.com with the actual URL of your API, if applicable.
+
+Running the Development Server
+
+To run the development server, execute the following command in your terminal:
+
+Using npm:
+
+bash
+
+npm run dev
+
+Using Yarn:
+
+bash
+
+yarn dev
+
+The development server will start, and you can access the application by navigating to http://localhost:3000 in your web browser.
+Building and Deploying
+
+To build the project for production, you can use the following commands:
+
+Using npm:
+
+bash
+
+npm run build
+npm start
+
+Using Yarn:
+
+bash
+
+yarn build
+yarn start
+
+Contributing
+
+If you'd like to contribute to ThreadBot, please follow these guidelines:
+
+    Fork the repository.
+    Create a new branch for your feature: git checkout -b feature-name
+    Commit your changes: git commit -m "Add some feature"
+    Push to the branch: git push origin feature-name
+    Create a pull request.
+
+License
+
+ThreadBot is released under the MIT License.
+
+That's it! You now have ThreadBot up and running on your local environment. Feel free to explore the codebase, customize the application, and start building your own Reddit clone webapp. If you encounter any issues or have questions, don't hesitate to reach out. Happy coding!
