@@ -11,7 +11,7 @@ import Post from "./Post"
 import { Loader2 } from "lucide-react"
 
 interface PostFeedProps {
-  initialPosts: ExtendedPost[]
+  initialPosts: any
   subredditName?: string
 }
 
