@@ -5,7 +5,7 @@ import logo from "@/assets/TB.jpg"
 
 const SignIn = () => {
   return (
-    <div className="container mx-auto flex w-full flex-col items-center justify-center space-y-6 sm:w-[400px]">
+    <div className="container mx-auto flex w-full flex-col items-center justify-center space-y-2 sm:w-[400px]">
       <Image src={logo} alt="ThreadBot logo" height={48} width={48} />
       <div className="flex flex-col space-y-2 justify-between text-center">
         
