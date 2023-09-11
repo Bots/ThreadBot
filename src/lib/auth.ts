@@ -26,7 +26,7 @@ export const authOptions: NextAuthOptions = {
 
         const { email, password } = credentials as { email: string; password: string }
 
-        const resp = await axios.post("/api/auth/login", {
+        const resp = await axios.post("/api/auth/signin/credentials", {
           method: "POST",
           headers: {
             Accept: "application/json",
@@ -34,7 +34,7 @@ export const authOptions: NextAuthOptions = {
           },
           body: JSON.stringify({email, password}),
         })
-
+        console.log(resp)
         const user = await resp.data
 
         if (user.data.is_success) {

@@ -7,6 +7,7 @@ import { useToast } from "@/hooks/use-toast"
 import React from "react"
 import { Button } from "./ui/Button"
 import { cn } from "@/lib/utils"
+import { usePathname } from 'next/navigation'
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -18,6 +19,8 @@ const UserAuthForm: FC<UserAuthFormProps> = ({ className, ...props }) => {
   const [password, setPassword] = useState<string>("")
 
   const [buttonStatus, setButtonStatus] = useState(true)
+
+  const pathname = usePathname()
 
   useEffect(() => {
     email && password ? setButtonStatus(true) : setButtonStatus(false)
@@ -46,7 +49,7 @@ const UserAuthForm: FC<UserAuthFormProps> = ({ className, ...props }) => {
       await signIn("credentials", {
         email,
         password,
-        callbackUrl: `${window.location.origin}`,
+        callbackUrl: `${pathname}`,
       })
     } catch (error) {
       toast({
