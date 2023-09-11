@@ -43,7 +43,7 @@ export function PasswordForm({ user, className, ...props }: UserNameFormProps) {
     mutationFn: async ({ password }: FormData) => {
       const payload: FormData = { password }
 
-      const { data } = await axios.patch(`/api/password/`, payload)
+      const { data } = await axios.patch(`/api/user/password/`, payload)
       return data
     },
     onError: (err) => {

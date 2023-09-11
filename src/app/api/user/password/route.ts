@@ -15,13 +15,13 @@ export async function PATCH(req: Request) {
     const body = await req.json()
 
     const { password } = PasswordValidator.parse(body)
+  
+    const newPassword: string = await bcrypt.hash(password, 10)
 
     await db.user.update({
-      where: {
-        id: session.user.id,
-      },
+      where: { id: session.user.id },
       data: {
-        password: await bcrypt.hash(password, 10),
+        password: newPassword
       },
     })
 
@@ -31,7 +31,7 @@ export async function PATCH(req: Request) {
       return new Response("Invalid request data passed", { status: 422 })
     }
 
-    return new Response("Could not update password. Please try again later.", {
+    return new Response(`There was an error updating your password: ${error}`, {
       status: 500,
     })
   }

@@ -1,12 +1,12 @@
 "use client"
 
 import { FC, useEffect, useState } from "react"
-import { cn } from "@/lib/utils"
-import { Button } from "./ui/Button"
 import { signIn } from "next-auth/react"
 import { Icons } from "./Icons"
 import { useToast } from "@/hooks/use-toast"
 import React from "react"
+import { Button } from "./ui/Button"
+import { cn } from "@/lib/utils"
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -14,14 +14,14 @@ const UserAuthForm: FC<UserAuthFormProps> = ({ className, ...props }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const { toast } = useToast()
 
-  const [email, setEmail] = useState<string>('')
+  const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
 
   const [buttonStatus, setButtonStatus] = useState(true)
 
   useEffect(() => {
-    (email && password) ? setButtonStatus(true) : setButtonStatus(false)
-  }, [email, password]);
+    email && password ? setButtonStatus(true) : setButtonStatus(false)
+  }, [email, password, toast])
 
   const loginWithGoogle = async () => {
     setIsLoading(true)
@@ -39,11 +39,15 @@ const UserAuthForm: FC<UserAuthFormProps> = ({ className, ...props }) => {
     }
   }
 
-  const loginWithCredentials = async () => {
+  const loginWithCredentials = async ({ email, password }: {email: string, password: string}) => {
     setIsLoading(true)
-
+    
     try {
-      await signIn("credentials")
+      await signIn("credentials", {
+        email,
+        password,
+        callbackUrl: `${window.location.origin}`,
+      })
     } catch (error) {
       toast({
         title: "There was a problem.",
@@ -91,7 +95,7 @@ const UserAuthForm: FC<UserAuthFormProps> = ({ className, ...props }) => {
             </div>
             <div className="mt-2">
               <input
-                onChange={(e) => setPassword(e.target.value)} 
+                onChange={(e) => setPassword(e.target.value)}
                 id="password"
                 name="password"
                 type="password"
@@ -113,6 +117,10 @@ const UserAuthForm: FC<UserAuthFormProps> = ({ className, ...props }) => {
 
           <div>
             <Button
+              onClick={(event) => {
+                event.preventDefault()
+                loginWithCredentials({ email, password })}
+              }
               disabled={!buttonStatus}
               type="submit"
               className="flex w-full my-6 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -123,12 +131,7 @@ const UserAuthForm: FC<UserAuthFormProps> = ({ className, ...props }) => {
         </form>
       </div>
 
-      <Button
-        onClick={loginWithGoogle}
-        isLoading={isLoading}
-        size="sm"
-        className="w-full"
-      >
+      <Button onClick={loginWithGoogle} isLoading={isLoading} size="sm" className="w-full">
         {isLoading ? null : <Icons.google className="h-4 w-4 mr-2" />}
         Google
       </Button>
